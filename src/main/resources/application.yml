@@ -15,3 +15,8 @@ server:
 
   error:
     include-stacktrace: always
+
+
+app:
+  jwt:
+    secret: Mukhammed&Java12

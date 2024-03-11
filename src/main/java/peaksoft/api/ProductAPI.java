@@ -34,7 +34,7 @@ public class ProductAPI {
 
 
     @Secured("ADMIN")
-    @PostMapping("/{loginID}")
+    @PostMapping("/{loginId}")
     public SimpleResponse save(@PathVariable Long loginID,
                                @RequestParam Category category,
                                @RequestBody ProductRequest productRequest
