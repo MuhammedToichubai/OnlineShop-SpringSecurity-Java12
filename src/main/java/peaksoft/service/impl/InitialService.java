@@ -2,6 +2,7 @@ package peaksoft.service.impl;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import peaksoft.enums.Category;
@@ -18,6 +19,7 @@ import java.math.BigDecimal;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class InitialService {
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
@@ -55,7 +57,9 @@ public class InitialService {
                 .build();
 
         userRepository.save(admin);
+        log.info("Default admin successfully saved");
         productRepository.save(product);
+        log.info("Default product successfully saved");
 
     }
 }

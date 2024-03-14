@@ -3,6 +3,7 @@ package peaksoft.service.impl;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +15,7 @@ import peaksoft.dto.response.RegisterResponse;
 import peaksoft.dto.response.SignResponse;
 import peaksoft.dto.response.SimpleResponse;
 import peaksoft.enums.Role;
+import peaksoft.exceptions.NotFoundException;
 import peaksoft.model.User;
 import peaksoft.repository.UserRepository;
 import peaksoft.service.UserService;
@@ -26,6 +28,7 @@ import java.util.NoSuchElementException;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepo;
     private final PasswordEncoder passwordEncoder;
@@ -53,6 +56,7 @@ public class UserServiceImpl implements UserService {
 
 
         User user = new User();
+        user.setPhoneNumber(signUpRequest.getPhoneNumber());
         user.setName(signUpRequest.getName());
         user.setEmail(signUpRequest.getEmail());
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
@@ -60,6 +64,7 @@ public class UserServiceImpl implements UserService {
         userRepo.save(user);
 
         String newToken = jwtService.createToken(user);
+        log.info("User successfully saved!");
         return RegisterResponse.builder()
                 .token(newToken)
                 .simpleResponse(
@@ -114,6 +119,12 @@ public class UserServiceImpl implements UserService {
                     .build();
         }
         return SimpleResponse.builder().httpStatus(HttpStatus.OK).build();
+    }
+
+    @Override
+    public User findById(Long userId) {
+       return userRepo.findById(userId).orElseThrow(()->
+                new NotFoundException("User with id : "+ userId+ " not found"));
     }
 
 

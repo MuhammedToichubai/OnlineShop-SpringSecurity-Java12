@@ -26,7 +26,7 @@ import peaksoft.repository.UserRepository;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@EnableMethodSecurity(securedEnabled = true)
+//@EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
     private final UserRepository userRepository;
     private final JwtFilter jwtFilter;
@@ -35,10 +35,14 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(request -> {
             request
-                    .requestMatchers("/api/auth/**")
+                    .requestMatchers(
+                            "/**",
+                            "/api/auth/**",
+                            "/swagger-ui/index.html/**"
+                    )
                     .permitAll()
                     .anyRequest()
-                    .authenticated()
+                    .permitAll()
             ;
         });
         http.csrf(AbstractHttpConfigurer::disable);
@@ -46,6 +50,7 @@ public class SecurityConfig {
 //        http.httpBasic(Customizer.withDefaults());
         return http.build();
     }
+
 
     @Bean
     public UserDetailsService userDetailsService() {

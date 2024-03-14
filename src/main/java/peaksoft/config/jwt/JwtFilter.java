@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import peaksoft.exceptions.ForbiddenException;
 import peaksoft.model.User;
 import peaksoft.repository.UserRepository;
 
@@ -53,9 +54,9 @@ public class JwtFilter extends OncePerRequestFilter {
                         );
 
             } catch (JWTVerificationException e) {
-                response.sendError(400);
+              response.sendError(HttpServletResponse.SC_FORBIDDEN,
+                      "Invalid JWT Token");
             }
-
         }
 
         filterChain.doFilter(request, response);

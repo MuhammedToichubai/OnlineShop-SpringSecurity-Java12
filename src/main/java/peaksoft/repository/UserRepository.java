@@ -7,6 +7,7 @@ import peaksoft.model.User;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+
 public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByEmail(String email);
@@ -15,8 +16,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
 
 
-    default User getByEmail(String email){
-       return findByEmail(email).orElseThrow(() ->
-                new NoSuchElementException("User with email: "+email+" not found!"));
+    default User getByEmail(String email) {
+        return findByEmail(email).orElseThrow(() ->
+                new NoSuchElementException("User with email: " + email + " not found!"));
     }
 }

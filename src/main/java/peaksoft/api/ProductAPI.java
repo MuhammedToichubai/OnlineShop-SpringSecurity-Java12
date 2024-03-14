@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.*;
 import peaksoft.dto.request.AddColourRequest;
 import peaksoft.dto.request.ProductInnerPageResponse;
 import peaksoft.dto.request.ProductRequest;
+import peaksoft.dto.response.PaginationResponse;
 import peaksoft.dto.response.ProductResponse;
 import peaksoft.dto.response.SimpleResponse;
 import peaksoft.enums.Category;
 import peaksoft.service.ProductService;
 import java.util.List;
-
 
 
 /**
@@ -31,15 +31,20 @@ public class ProductAPI {
         return productService.findAllProducts();
     }
 
+    @GetMapping("/pagination")
+    public PaginationResponse findAllProducts(@RequestParam(defaultValue = "1") int page,
+                                               @RequestParam (defaultValue = "3")int size){
+        return productService.findAllProducts(page, size);
+
+    }
 
 
     @Secured("ADMIN")
     @PostMapping("/{loginId}")
-    public SimpleResponse save(@PathVariable Long loginID,
+    public SimpleResponse save(@PathVariable Long loginId,
                                @RequestParam Category category,
-                               @RequestBody ProductRequest productRequest
-    ){
-      return   productService.save(loginID, category, productRequest);
+                               @RequestBody ProductRequest productRequest){
+      return   productService.save(loginId, category, productRequest);
     }
 
     @Secured({"ADMIN"})

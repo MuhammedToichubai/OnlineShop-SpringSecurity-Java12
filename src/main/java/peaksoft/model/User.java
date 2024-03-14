@@ -24,6 +24,7 @@ public class User implements UserDetails {
     private String name;
     private String email;
     private String password;
+    private String phoneNumber;
     @Enumerated(EnumType.STRING)
     private Role role;
     @ManyToMany

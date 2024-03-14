@@ -3,6 +3,7 @@ package peaksoft.service;
 import peaksoft.dto.request.AddColourRequest;
 import peaksoft.dto.request.ProductInnerPageResponse;
 import peaksoft.dto.request.ProductRequest;
+import peaksoft.dto.response.PaginationResponse;
 import peaksoft.dto.response.ProductResponse;
 import peaksoft.dto.response.SimpleResponse;
 import peaksoft.enums.Category;
@@ -24,4 +25,6 @@ public interface ProductService {
     List<ProductResponse> findAllFavProducts(Long loginId);
 
     ProductInnerPageResponse findById(Long productId);
+
+    PaginationResponse findAllProducts(int page, int size);
 }

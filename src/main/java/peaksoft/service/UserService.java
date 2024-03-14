@@ -18,4 +18,6 @@ public interface UserService {
     SignResponse signIn(SignInRequest signInRequest);
 
     SimpleResponse update(Principal principal, Long userID, User user);
+
+    User findById(Long userId);
 }

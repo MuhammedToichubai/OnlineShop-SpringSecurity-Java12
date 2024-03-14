@@ -5,9 +5,11 @@ import org.springframework.data.jpa.repository.Query;
 import peaksoft.dto.request.ProductInnerPageResponse;
 import peaksoft.dto.response.ProductResponse;
 import peaksoft.enums.Size;
+import peaksoft.exceptions.NotFoundException;
 import peaksoft.model.Product;
 
 import java.util.List;
+
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
@@ -38,4 +40,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             Product p where p.id = ?1
             """)
     List<Size> getSizes(Long productId);
+
+    default Product findProductBId(Long productId) {
+        return findById(productId).orElseThrow(() ->
+                new NotFoundException(String.format("Product with id : %d not found!", productId)));
+    }
 }
