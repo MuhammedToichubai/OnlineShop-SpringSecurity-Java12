@@ -25,7 +25,7 @@ RUN apt-get update && \
 RUN gradle build --no-daemon
 
 # Use OpenJDK 21.0.2-jdk-slim as runtime image
-FROM openjdk:21.0.2-jdk-slim
+FROM openjdk:15-jdk-slim
 WORKDIR /app
 COPY --from=build /app/build/libs/dto-java12-0.0.1-SNAPSHOT.jar ./
 CMD ["java", "-jar", "dto-java12-0.0.1-SNAPSHOT.jar"]
