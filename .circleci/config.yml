@@ -3,7 +3,7 @@ version: 2.1
 parameters:
   docker-container:
     type: string
-    default: "DTO-Java12"
+    default: "dto-java12"
 
 jobs:
   install-docker-if-not-exists:

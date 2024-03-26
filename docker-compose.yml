@@ -2,7 +2,7 @@ version: "3.9"
 services:
   backend:
     image: '#image'
-    container_name: DTO-Java12
+    container_name: dto-java12
     restart: always
     ports:
       - "80:2023"
