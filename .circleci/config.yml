@@ -79,7 +79,6 @@ jobs:
             sudo rm ./<< pipeline.parameters.docker-container >>.tar.gz
             sudo docker-compose up -d
             '
-
 workflows:
   deploy:
     jobs:
