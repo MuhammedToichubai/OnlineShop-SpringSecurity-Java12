@@ -3,7 +3,7 @@ version: 2.1
 parameters:
   docker-container:
     type: string
-    default: "DTO-Java12"
+    default: "dto-java12"
 
 jobs:
   install-docker-if-not-exists:
@@ -79,7 +79,6 @@ jobs:
             sudo rm ./<< pipeline.parameters.docker-container >>.tar.gz
             sudo docker-compose up -d
             '
-
 workflows:
   deploy:
     jobs:
